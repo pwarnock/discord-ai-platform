@@ -1,0 +1,17 @@
+# Environment variables (contains secrets)
+.env
+
+# Node modules
+node_modules/
+discord-bot/node_modules/
+
+# n8n data (contains credentials and execution history)
+n8n_data/
+
+# Logs
+*.log
+discord-bot/*.log
+
+# OS files
+.DS_Store
+Thumbs.db

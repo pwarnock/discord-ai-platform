@@ -1,0 +1,45 @@
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE=America/Los_Angeles
+      - TZ=America/Los_Angeles
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./workflows:/data/workflows
+      - ./backups:/home/node/backups
+
+  discord-bot:
+    image: oven/bun:latest
+    container_name: discord-bot
+    working_dir: /app
+    volumes:
+      - ./discord-bot:/app
+    environment:
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - N8N_WEBHOOK=http://n8n:5678/webhook/discord
+      - N8N_WEBHOOK_TEST=http://n8n:5678/webhook-test/discord
+      - TEST_CHANNEL_ID=${TEST_CHANNEL_ID}
+      - JAEGER_ENDPOINT=http://jaeger:4318
+      - LOG_LEVEL=debug
+    command: bun run index.ts
+    depends_on:
+      - n8n
+    restart: unless-stopped
+    networks:
+      - default
+      - observability
+
+volumes:
+  n8n_data:
+    external: true
+
+networks:
+  observability:
+    external: true
+
