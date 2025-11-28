@@ -1,16 +1,23 @@
 # Environment variables (contains secrets)
 .env
 
-# Node modules
+# Dependencies
 node_modules/
-discord-bot/node_modules/
+packages/*/node_modules/
+
+# Build outputs
+dist/
+packages/*/dist/
 
 # n8n data (contains credentials and execution history)
 n8n_data/
 
 # Logs
 *.log
-discord-bot/*.log
+packages/*/*.log
+
+# Turborepo
+.turbo/
 
 # OS files
 .DS_Store

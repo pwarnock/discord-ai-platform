@@ -18,7 +18,7 @@ services:
     container_name: discord-bot
     working_dir: /app
     volumes:
-      - ./discord-bot:/app
+      - ./packages/discord-bot:/app
     environment:
       - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
       - N8N_WEBHOOK=http://n8n:5678/webhook/discord

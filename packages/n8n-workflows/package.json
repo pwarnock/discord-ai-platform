@@ -1,0 +1,16 @@
+{
+  "name": "n8n-workflows",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "import": "bunx n8n-kit import",
+    "build": "echo 'No workflows to build yet'",
+    "deploy": "bunx n8n-kit deploy",
+    "watch": "bunx n8n-kit build --watch",
+    "diff": "bunx n8n-kit diff"
+  },
+  "dependencies": {
+    "@vahor/n8n-kit": "^0.17.0",
+    "@vahor/n8n-kit-cli": "^0.4.22"
+  }
+}
