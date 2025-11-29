@@ -39,8 +39,7 @@ packages/
 ### 1. Clone and Install
 
 ```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/discord-ai-platform.git
+git clone https://github.com/pwarnock/discord-ai-platform.git
 cd discord-ai-platform
 bun install
 ```
