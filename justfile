@@ -37,12 +37,12 @@ logs service="":
 backup:
     #!/usr/bin/env bash
     TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-    docker exec -it n8n n8n export:workflow --backup --output=backups/$TIMESTAMP/
+    docker exec n8n n8n export:workflow --backup --output=backups/$TIMESTAMP/
     echo "Backed up to backups/$TIMESTAMP/"
 
 # Backup to latest (overwrites)
 backup-latest:
-    docker exec -it n8n n8n export:workflow --backup --output=backups/latest/
+    docker exec n8n n8n export:workflow --backup --output=backups/latest/
 
 # Import workflow from n8n to TypeScript
 import workflow_id:
