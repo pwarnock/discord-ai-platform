@@ -7,7 +7,7 @@ const app = new App();
 new Workflow(app, "my-workflow", {
     name: "Discord bridge",
     active: true,
-    tags: [],
+    tags: ["n8n-kit"],
     settings: {
         "executionOrder": "v1",
     },
