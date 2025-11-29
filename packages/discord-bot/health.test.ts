@@ -44,28 +44,23 @@ describe("Health & Monitoring Tests", () => {
   });
 
   describe("Service Dependencies", () => {
-    test("should be able to reach n8n webhook endpoint if configured", async () => {
-      const webhookUrl = process.env.N8N_WEBHOOK_TEST;
+    test("should be able to reach n8n webhook endpoint", async () => {
+      const webhookUrl = process.env.N8N_WEBHOOK || "http://localhost:5678/webhook/discord";
       
-      if (!webhookUrl) {
-        expect(true).toBe(true); // Skip if not configured
-        return;
-      }
-
       try {
         const response = await fetch(webhookUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            eventType: "health-check",
             content: "health check",
             author: { id: "health-check" },
-            guild: { id: "health-check" },
-            channel_id: "health-check"
+            channel: { id: "health-check" }
           })
         });
 
-        // Should get some response (even if workflow isn't active)
-        expect(response).toBeDefined();
+        // Webhook should be registered (not 404)
+        expect(response.status).not.toBe(404);
       } catch (err) {
         // Service may be down in test environment
         console.warn("n8n webhook unreachable (expected in test env)");

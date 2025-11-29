@@ -16,6 +16,8 @@ build:
 up:
     docker-compose up -d
     docker-compose -f observability-compose.yaml up -d
+    @echo "Activating webhooks..."
+    @./scripts/activate-webhooks.sh
 
 # Stop all services
 down:
