@@ -34,11 +34,19 @@ new Workflow(app, "my-workflow", {
                 position: [192,0],
                 parameters:  {
                     "mode": "runOnceForEachItem",
-                    "jsCode": `const isDM = !\$json.body.guild.id;
+                    "jsCode": `const isDM = !\$json.body.guild_id;
 const authorId = \$json.body.author.id;
-const sessionId = isDM 
-  ? \`discord-dm-\${authorId}\`
-  : \`discord-server-\${authorId}\`;
+const channelId = \$json.body.channel_id;
+
+let sessionId;
+
+if (isDM) {
+  // DMs: session per user
+  sessionId = \`discord-dm-\${authorId}\`;
+} else {
+  // Server: session per channel (shared conversation history)
+  sessionId = \`discord-server-\${channelId}\`;
+}
 
 return {
   json: {

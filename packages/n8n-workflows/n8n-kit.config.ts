@@ -6,7 +6,7 @@ export default defineConfig({
     apiKey: process.env.N8N_API_KEY || '',
   },
   workflows: {
-    input: './src/workflows',
+    input: './src',
     output: './dist',
   },
 });
