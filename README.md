@@ -107,14 +107,16 @@ bun run deploy          # Deploy workflows to n8n
 ### n8n Workflow Management
 
 ```bash
-# Export workflows
-docker exec -it n8n n8n export:workflow --backup --output=backups/latest/
+# Export workflows from n8n
+docker exec n8n n8n export:workflow --backup --output=backups/latest/
 
-# Import workflow to TypeScript
+# Import workflow to TypeScript (requires N8N_API_KEY)
 cd packages/n8n-workflows
-bun run import -- --workflow-id=<id> --output=src/workflow.ts
+export N8N_BASE_URL=http://localhost:5678
+export N8N_API_KEY=your_api_key
+bun run import -- --id=<workflow-id> --out=src/workflow.ts
 
-# Deploy workflows
+# Deploy workflows from TypeScript
 bun run deploy
 
 # Watch mode for development

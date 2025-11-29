@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "import": "bunx n8n-kit import",
-    "build": "echo 'No workflows to build yet'",
-    "deploy": "bunx n8n-kit deploy",
-    "watch": "bunx n8n-kit build --watch",
-    "diff": "bunx n8n-kit diff"
+    "import": "bunx --bun @vahor/n8n import",
+    "build": "bunx --bun @vahor/n8n build",
+    "deploy": "bunx --bun @vahor/n8n deploy",
+    "watch": "bunx --bun @vahor/n8n build --watch",
+    "diff": "bunx --bun @vahor/n8n diff"
   },
   "dependencies": {
     "@vahor/n8n-kit": "^0.17.0",
