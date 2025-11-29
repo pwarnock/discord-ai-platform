@@ -101,9 +101,10 @@ just test-webhook       # Test Discord webhook
 ### Turborepo Commands
 
 ```bash
-bun run test            # Run tests in all packages
-bun run build           # Build all packages
-bun run deploy          # Deploy workflows to n8n
+turbo test              # Run tests in all packages
+turbo build             # Build all packages
+turbo deploy            # Deploy workflows to n8n
+turbo dev               # Development mode
 ```
 
 ### n8n Workflow Management
