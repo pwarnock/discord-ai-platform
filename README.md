@@ -119,6 +119,9 @@ just up
 
 # Or using Docker Compose
 docker-compose up -d
+
+# Activate n8n webhooks (required after n8n restart)
+just activate-webhooks
 ```
 
 ### 4. Run Tests
@@ -308,13 +311,16 @@ curl -X POST http://localhost:5678/webhook-test/discord \
 2. View logs: `just logs discord-bot`
 3. Verify webhook URL in bot config
 4. Test webhook: `just test-webhook`
+5. Ensure MESSAGE CONTENT intent is enabled in Discord Developer Portal
+6. Reactivate n8n webhooks: `just activate-webhooks`
 
 ### n8n Workflow Issues
 
-1. Check workflow is active in n8n UI
-2. View execution logs in n8n
-3. Verify API key is set: `echo $N8N_API_KEY`
-4. Re-export workflows: `just backup-latest`
+1. Reactivate webhooks after restart: `just activate-webhooks`
+2. Check workflow is active in n8n UI
+3. View execution logs in n8n
+4. Verify API key is set: `echo $N8N_API_KEY`
+5. Re-export workflows: `just backup-latest`
 
 ### Tests Failing
 

@@ -15,6 +15,7 @@ build:
 # Start all services
 up:
     docker-compose up -d
+    docker-compose -f observability-compose.yaml up -d
 
 # Stop all services
 down:
@@ -114,3 +115,7 @@ delete-workflow workflow_id:
     echo "✅ Workflow deleted"
     echo "🔄 Syncing backups..."
     just backup-latest
+
+# Activate n8n webhooks after restart
+activate-webhooks:
+    ./scripts/activate-webhooks.sh

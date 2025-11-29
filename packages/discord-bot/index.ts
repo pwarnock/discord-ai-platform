@@ -211,11 +211,21 @@ if (import.meta.main) {
     intents: [
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.DirectMessages,
       GatewayIntentBits.MessageContent,
     ]
   });
 
   setupClient(client);
-  client.login(BOT_TOKEN);
+  
+  client.once('clientReady', () => {
+    logger.info({ user: client.user?.tag }, 'Bot logged in and ready');
+  });
+  
+  client.on('error', (error) => {
+    logger.error({ error }, 'Discord client error');
+  });
+  
+  await client.login(BOT_TOKEN);
   logger.info('Discord bridge running...');
 }
