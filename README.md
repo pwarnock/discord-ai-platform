@@ -29,9 +29,6 @@ graph LR
     B -->|Reply| A
     
     B -.->|Traces| F[Jaeger]
-    C -.->|Traces| F
-    D -.->|Traces| F
-    
     B -.->|Logs| G[Pino Logger]
 ```
 
@@ -65,8 +62,7 @@ graph TB
     
     subgraph "Observability"
         D -.->|Traces| G[Jaeger]
-        C -.->|Traces| G
-        D -.->|Logs| H[Stdout/Pino]
+        D -.->|Logs| H[Pino Logger]
     end
 ```
 
