@@ -1,4 +1,4 @@
-# n8n Discord Integration
+# Discord AI Platform
 
 A production-ready Discord bot integrated with n8n workflows for AI-powered chat automation. Built with TypeScript, Bun, and Turborepo.
 
@@ -39,8 +39,8 @@ packages/
 ### 1. Clone and Install
 
 ```bash
-git clone <repo-url>
-cd n8n_local
+git clone https://github.com/pwarnock/discord-ai-platform.git
+cd discord-ai-platform
 bun install
 ```
 
