@@ -98,3 +98,16 @@ sync:
             echo "⏭️  Skipped sync"
         fi
     fi
+
+# Delete workflow by ID (backs up first)
+delete-workflow workflow_id:
+    #!/usr/bin/env bash
+    echo "🔄 Backing up before delete..."
+    just backup
+    echo "🗑️  Deleting workflow {{workflow_id}}..."
+    curl -X DELETE http://localhost:5678/api/v1/workflows/{{workflow_id}} \
+      -H "X-N8N-API-KEY: ${N8N_API_KEY}"
+    echo ""
+    echo "✅ Workflow deleted"
+    echo "🔄 Syncing backups..."
+    just backup-latest
