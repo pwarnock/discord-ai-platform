@@ -10,9 +10,20 @@
     "build": "turbo build",
     "test": "turbo test",
     "deploy": "turbo deploy",
-    "dev": "turbo dev"
+    "dev": "turbo dev",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "turbo": "^2.6.1"
+  },
+  "lint-staged": {
+    "*.{ts,js,json}": [
+      "bash -c 'turbo test'"
+    ],
+    ".env": [
+      "bash -c 'echo \"❌ Error: .env files should not be committed!\" && exit 1'"
+    ]
   }
 }
