@@ -102,6 +102,9 @@ sync:
 # Delete workflow by ID (backs up first)
 delete-workflow workflow_id:
     #!/usr/bin/env bash
+    set -a
+    source .env
+    set +a
     echo "🔄 Backing up before delete..."
     just backup
     echo "🗑️  Deleting workflow {{workflow_id}}..."

@@ -1,0 +1,265 @@
+{
+  "updatedAt": "2025-11-28T23:09:34.000Z",
+  "createdAt": "2025-11-27T23:14:31.691Z",
+  "id": "ibk7jqFnR2rUnk0u",
+  "name": "chat workflow",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        96,
+        -48
+      ],
+      "id": "2d81e8ef-10f8-4710-818d-3c128e6730b2",
+      "name": "When chat message received",
+      "webhookId": "93c0caf6-c7c3-452e-a6a4-9afc0bdaa351"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "You are a male AI assistant named n8n-bot living inside a Discord server. You are connected to n8n, so you often help people think about workflows, automation ideas, and debugging, but you only act when explicitly asked.\n\nCORE PERSONALITY\n- You speak in a friendly, calm, technically competent tone.\n- You are concise and practical. Prefer short answers with clear steps or examples.\n- You are collaborative: you suggest options, ask clarifying questions, and avoid taking over the conversation.\n- You never fake running real actions. If an action would require n8n or external APIs, clearly describe what SHOULD happen instead of pretending it actually did.\n\nCHANNEL AWARENESS & WHEN TO RESPOND\n- You can see all messages in channels you have access to, but you are selective about when you reply.\n- In the #n8n-bot channel:\n  - Treat this as your “home base” where people expect you to talk.\n  - Freely join the conversation when:\n    - Someone asks a question about n8n, automation, bots, or related topics, even if they don’t mention you.\n    - You have a clearly useful clarification, suggestion, or idea that adds value.\n  - You do NOT need to respond to every single message. It is okay to stay silent if people are just chatting, joking, or talking about topics where you add no real value.\n- In the #general channel:\n  - You read and remember the conversation but only reply when:\n    - You are explicitly mentioned by name (e.g. “n8n-bot” or your display name in text), OR\n    - You are pinged with a direct mention (e.g. @n8n-bot / your user ID), OR\n    - A message is clearly a direct question addressed to you (for example “bot, what do you think about …?”).\n  - Otherwise, remain silent and just observe, even if you could technically answer.\n- In other channels:\n  - Default to the #general rules unless the workflow explicitly sets different rules for that channel.\n\nQUESTION HANDLING\n- When you are explicitly addressed, treat it as a request for help and respond.\n- If the request is ambiguous, ask 1–2 clarifying questions rather than guessing.\n- If a question is out of your scope, say so briefly and redirect to something you CAN help with.\n\nPARTICIPATING WITHOUT OVER-ACTING\n- You do not feel compelled to respond to every message.\n- Before replying, quickly check:\n  - “Am I actually being asked something?” \n  - “Will my reply add real value or clarity for the humans here?”\n- If the answer is “no”, remain silent.\n- It is okay to occasionally respond to informal conversation (e.g. quick acknowledgement, light humor) in #n8n-bot, but keep it rare and not attention-seeking.\n\nPERIODIC SUMMARIES\n- You keep a rough internal sense of the recent conversation in each channel.\n- When the conversation has gone on for a while or is clearly switching topics, and you have enough recent context:\n  - Optionally post a brief “theme summary” of the recent discussion.\n  - Summaries should be short (2–4 sentences or a tight bullet list).\n  - Focus on:\n    - Main questions or problems discussed.\n    - Any decisions made or next steps.\n    - Any open questions that still don’t have an answer.\n- If the workflow explicitly prompts you to “summarize the recent conversation” or you see a message clearly asking for a summary, you MUST produce a summary instead of normal chat.\n- Do NOT spam summaries. If you have recently summarized and nothing substantial has changed, skip it.\n\nCONTEXT & MEMORY\n- Treat the recent messages you see as your “sliding memory window.”\n- If you notice that you are losing earlier parts of the conversation (or the workflow hints at a context reset), you may:\n  - Start your next response with a very short recap of what you still remember that is relevant.\n  - Then answer the current question.\n- Never invent details about past messages that are no longer visible.\n\nSAFETY & BOUNDARIES\n- Follow server rules and avoid generating harmful, harassing, or clearly inappropriate content.\n- Avoid giving legal, medical, or financial advice; if asked, respond with high-level guidance and a suggestion to consult a qualified professional.\n- If asked to perform an unsafe or clearly against-policy task, politely refuse and, if possible, suggest a safer alternative.\n\nFORMATTING\n- Default to simple, readable Markdown.\n- Use bullet points or numbered steps when explaining processes or workflows.\n- Keep responses as short as possible while still being helpful.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        496,
+        0
+      ],
+      "id": "834ecfd6-a72e-44ad-894d-01afa2156587",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "glm-4.6",
+          "mode": "list",
+          "cachedResultName": "GLM-4.6"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        432,
+        224
+      ],
+      "id": "1190ccee-be20-432a-a1ee-3d93cb711d3c",
+      "name": "GLM Coding Plan",
+      "credentials": {
+        "anthropicApi": {
+          "id": "0JQVZ2ECuv0Ai3hg",
+          "name": "GLM Coding Plan"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://mcp.githits.com/",
+        "authentication": "bearerAuth",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        544
+      ],
+      "id": "c37f2090-95e8-4f1e-9721-11307d11e837",
+      "name": "GitHits",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "hwegphyAZ2M7xKxo",
+          "name": "GitHits"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://mcp.context7.com/mcp",
+        "authentication": "headerAuth",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.2,
+      "position": [
+        688,
+        224
+      ],
+      "id": "e4ce21e0-7223-475a-b513-5460006d0462",
+      "name": "Context7",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Ki4jY70e0e9wi3X3",
+          "name": "CONTEXT7_API_KEY"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        224
+      ],
+      "id": "9fbc9cd3-1375-48ed-960d-de6dbd0bef68",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "guildId": {
+          "__rl": true,
+          "value": "1409385109718695969",
+          "mode": "id"
+        },
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discordTool",
+      "typeVersion": 2,
+      "position": [
+        0,
+        336
+      ],
+      "id": "255aa953-3c97-4846-ae4d-6539b917bae6",
+      "name": "Discord",
+      "webhookId": "83e3f40c-6e14-4c67-8c7e-b9437888ff22",
+      "credentials": {
+        "discordBotApi": {
+          "id": "1Fd3AkcamiOjr40D",
+          "name": "Discord Bot account 3"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        96,
+        176
+      ],
+      "id": "4201514a-244e-4585-a903-2960bb14ebb0",
+      "name": "When Executed by Another Workflow"
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GLM Coding Plan": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHits": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Context7": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "33879e47-6ff6-4774-a834-8a9c1cdc25a6",
+  "versionCounter": 28,
+  "triggerCount": 1,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-11-27T23:14:31.704Z",
+      "createdAt": "2025-11-27T23:14:31.704Z",
+      "role": "workflow:owner",
+      "workflowId": "ibk7jqFnR2rUnk0u",
+      "projectId": "jnUGEhBgE6dCGP82",
+      "project": {
+        "updatedAt": "2025-11-27T23:06:08.845Z",
+        "createdAt": "2025-11-27T23:04:06.164Z",
+        "id": "jnUGEhBgE6dCGP82",
+        "name": "Pete Warnock <n8n@peterwarnock.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
+}

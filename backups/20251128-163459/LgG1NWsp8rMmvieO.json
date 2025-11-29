@@ -1,0 +1,166 @@
+{
+  "updatedAt": "2025-11-27T23:47:31.000Z",
+  "createdAt": "2025-11-27T23:27:10.839Z",
+  "id": "LgG1NWsp8rMmvieO",
+  "name": "Analyze Landing Page with OpenAI and Get Optimization Tips",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Conversion Rate Optimizer",
+        "formDescription": "Your Landing Page is Leaking Sales—Fix It Now",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Landing Page Url",
+              "placeholder": "https://yuzuu.co",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8aca34c2-65d6-432a-a7a5-fede59c3f4cb",
+      "name": "Landing Page Url",
+      "type": "n8n-nodes-base.formTrigger",
+      "position": [
+        368,
+        240
+      ],
+      "webhookId": "0818531a-3892-49f6-af78-cde8d538b205",
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "url": "={{ $json['Landing Page Url'] }}",
+        "options": {}
+      },
+      "id": "61e17805-93aa-46a3-a5a1-36c02da6432a",
+      "name": "Scrape Website",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        576,
+        240
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a professional expert in Conversion Rate Optimization who helps business founders & CMOs improve their landing pages. You are a world-class expert in analysing landing pages, roasting them, and providing valuable Conversion Rate Optimization Ideas to help businesses increase conversions.  \n\nGOAL\nI want you to roast my landing page and deliver recommendations to improve the Conversion Rate. I will use this roast to understand what's wrong with my landing page and make improvements based on your recommendations. \n\nROAST STRUCTURE\nThis framework consists of 2 blocks of insights: \nRoast: a detailed roast of my landing page.\nRecommendations: 10 conversion rate optimization ideas based on your roast and analysis.\n\nROAST & RECOMMENDATIONS CRITERIA\nFor the Roast: Be friendly & casual. Talk like a human to another human. \nFor the Roast: Be unconventional & fun. I don't want to be bored. A roast must agitate the reader's feelings. \nFor the Roast: You will make a full landing page analysis, and explain what's wrong. You will use this analysis to make recommendations for The Recommendations.  \nFor the Recommendations: Be specific. Write exactly what I need to do. Your detailed description for each Conversion Rate Optimization Idea should be self-explanatory. For example, instead of saying “Rewrite your headline”, give me improved ideas for the headline. Your job is to return advanced insights personalised only for my specific landing page. This is a critical law for you.\nFor the Recommendations: Be creative. Don't return trivial and outdated Conversion Rate Optimization ideas that the average marketer would recommend. Prioritise unconventional CRO tactics so I get real value from you here. Think like the top 0.1% conversion rate optimization expert.\nFor the Recommendations: Prioritise Conversion Rate Optimization Ideas that are relevant in the 2024 digital marketing space. \nFor the Recommendations: Your Conversion Rate Optimization ideas must be impactful. Prioritise Conversion Rate Optimization Ideas that adds a wow effect.\nFor the Recommendations: Your Conversion Rate Optimization ideas must be easy to implement.\nFor the Recommendations: Personalise your ideas with references to the Roast you made. I don’t want to read 10 generic ideas that can work for anyone (for example, “add a live chat” or “offer a free trial”). I need a 100% personalised response.\n\nHere is the content of my landing page: {{ $json.data }}",
+        "options": {}
+      },
+      "id": "cbe8bed2-37a0-4459-a34c-47b87c012875",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        800,
+        240
+      ],
+      "typeVersion": 1.7
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "glm-4.5",
+          "mode": "list",
+          "cachedResultName": "glm-4.5"
+        },
+        "options": {}
+      },
+      "id": "37786922-d64b-4e84-916e-1df8daeb0287",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        752,
+        464
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "PAboRVPBaHZ6EojS",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Scrape Website": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Landing Page Url": {
+      "main": [
+        [
+          {
+            "node": "Scrape Website",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": {
+    "templateId": "3100"
+  },
+  "pinData": {
+    "AI Agent": [
+      {
+        "json": {
+          "output": "# ROAST: Peter Warnock's Landing Page\n\nPeter, your landing page is like a Swiss Army knife with 50 attachments - it can do everything, but I'm not sure what I should actually use it for. You've packed so much information onto this page that visitors might need a DevOps engineer just to navigate it. \n\nThe hero carousel is playing a game of \"now you see me, now you don't\" with your most important value proposition. Just when I'm getting interested in your cloud architecture expertise, POOF - now I'm reading about how your website is built with Hugo and Tailwind. Fascinating stuff, but is that really why a potential client or employer came to your site?\n\nYour skills section reads like a technical thesaurus vomited all over the page. \"Experienced in programming languages such as Python, JavaScript/TypeScript, Java, and C#. Proficient in object-oriented programming, functional programming, and scripting.\" That's like saying \"I can breathe oxygen and convert it to carbon dioxide\" - technically true but utterly meaningless without context.\n\nThe recruiter CTA section is hiding at the bottom like it's ashamed to be there. It's the digital equivalent of whispering \"hey, wanna hire me?\" from across a crowded room. And don't get me started on the newsletter signup in the footer - it's so small I needed to use the zoom function just to read it.\n\nYour content grid is playing a game of \"which of these things is not like the other?\" mixing blog posts, projects, and tools together like a tech salad. And the footer has more links than a blockchain has blocks - it's a navigation nightmare that would make even the most patient user rage-quit.\n\n# RECOMMENDATIONS: 10 Conversion Rate Optimization Ideas\n\n## 1. Create a \"Problem-Solution\" Hero Section\nReplace the carousel with a single, powerful hero section that immediately communicates your value. Instead of \"Peter Warnock - Full-Stack Developer & Technical Leader,\" use something like \"I help tech companies scale their infrastructure without the growing pains.\" Add a specific, quantifiable result: \"Reduced cloud costs by 37% while increasing system reliability for 6 Fortune 500 companies.\"\n\n## 2. Implement a \"Client Journey\" Navigation\nInstead of generic navigation (Home, Blog, Portfolio), organize it by visitor intent: \"For Hiring Managers,\" \"For Technical Collaborators,\" \"For Open Source Contributors.\" Each section would contain relevant content tailored to that specific audience, making it immediately clear where different types of visitors should go.\n\n## 3. Add a \"Results Showcase\" Section\nReplace the generic skills section with a visual showcase of actual results. For each skill area, include a brief case study with metrics: \"CI/CD Pipelines: Slashed deployment time from 4 hours to 12 minutes for a SaaS company serving 2M+ users.\" This transforms your skills from abstract concepts to proven business value.\n\n## 4. Create an \"Expertise Filter\" Tool\nAdd an interactive tool that allows visitors to filter your expertise based on their needs. For example, checkboxes for \"Cloud Migration,\" \"DevOps Transformation,\" \"Team Leadership,\" etc., with content that dynamically updates to show relevant experience and results. This personalizes the experience and helps visitors quickly find what's relevant to them.\n\n## 5. Implement a \"Tech Stack Timeline\"\nInstead of static lists of technologies, create an interactive timeline showing your evolution with different technologies over the years. This demonstrates growth and adaptability while being more engaging than a simple list. Each point on the timeline could include a brief story or achievement related to that technology.\n\n## 6. Add a \"Day in the Life\" Video Section\nInclude a short (60-90 second) video showing a typical day working with you or your team. This humanizes your technical expertise and helps potential employers/clients visualize working with you. The video could show you solving a real problem, collaborating with a team, or explaining a complex concept simply.\n\n## 7. Create a \"Challenge-Based\" CTA\nReplace the generic recruiter CTA with a challenge-based approach: \"Got a cloud infrastructure problem that's keeping you up at night? Let's solve it in 30 minutes - free consultation, no strings attached.\" This positions you as a problem-solver rather than just another job seeker.\n\n## 8. Implement a \"Content Personalization\" System\nUse simple JavaScript to personalize content based on referral source. If someone comes from LinkedIn, show more leadership/team content. If they come from GitHub, show more technical/open source content. This creates a more relevant experience without requiring complex backend systems.\n\n## 9. Add a \"Tech Radar\" Visualization\nCreate an interactive visualization of your technology assessment (similar to ThoughtWorks Tech Radar) that shows your recommendations on which technologies to adopt, trial, assess, or hold. This positions you as a thought leader while providing unique value that visitors won't find on other portfolio sites.\n\n## 10. Implement a \"Micro-Commitment\" Strategy\nInstead of asking for the big commitment (contacting you), offer smaller micro-commitments that build trust. For example: \"Download my 5-Step Cloud Migration Checklist\" or \"Take My 2-Minute DevOps Maturity Assessment.\" These provide immediate value while naturally leading visitors toward deeper engagement with you."
+        }
+      }
+    ]
+  },
+  "versionId": "77f8825e-dfe6-43cf-b090-5b3834e8a332",
+  "versionCounter": 3,
+  "triggerCount": 0,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-11-27T23:27:10.855Z",
+      "createdAt": "2025-11-27T23:27:10.855Z",
+      "role": "workflow:owner",
+      "workflowId": "LgG1NWsp8rMmvieO",
+      "projectId": "jnUGEhBgE6dCGP82",
+      "project": {
+        "updatedAt": "2025-11-27T23:06:08.845Z",
+        "createdAt": "2025-11-27T23:04:06.164Z",
+        "id": "jnUGEhBgE6dCGP82",
+        "name": "Pete Warnock <n8n@peterwarnock.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
+}
