@@ -9,9 +9,14 @@ services:
       - TZ=America/Los_Angeles
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - N8N_RUNNERS_ENABLED=true
+      - N8N_METRICS=true
+      - N8N_METRICS_INCLUDE_DEFAULT_METRICS=true
     volumes:
       - n8n_data:/home/node/.n8n
       - ./backups:/home/node/backups
+    networks:
+      - default
+      - observability
 
   discord-bot:
     image: oven/bun:latest
@@ -19,6 +24,7 @@ services:
     working_dir: /app
     volumes:
       - ./packages/discord-bot:/app
+      - discord_bot_modules:/app/node_modules
     environment:
       - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
       - N8N_WEBHOOK=http://n8n:5678/webhook/discord
@@ -26,7 +32,7 @@ services:
       - TEST_CHANNEL_ID=${TEST_CHANNEL_ID}
       - JAEGER_ENDPOINT=http://jaeger:4318
       - LOG_LEVEL=debug
-    command: bun run index.ts
+    command: sh -c "bun install && bun run index.ts"
     depends_on:
       - n8n
     restart: unless-stopped
@@ -37,6 +43,7 @@ services:
 volumes:
   n8n_data:
     external: true
+  discord_bot_modules:
 
 networks:
   observability:
