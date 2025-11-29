@@ -1,0 +1,8 @@
+{
+  "n8n": {
+    "baseUrl": "http://localhost:5678",
+    "apiKey": ""
+  },
+  "entrypoint": "./src/discord-bridge.ts",
+  "out": "./dist"
+}
