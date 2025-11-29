@@ -22,3 +22,10 @@ packages/*/*.log
 # OS files
 .DS_Store
 Thumbs.db
+
+# Beads local files (database and daemon)
+.beads/beads.db
+.beads/beads.db-*
+.beads/bd.sock
+.beads/bd.pipe
+.beads/.exclusive-lock
