@@ -15,6 +15,63 @@ A production-ready Discord bot integrated with n8n workflows for AI-powered chat
 
 ## Architecture
 
+### System Overview
+
+```mermaid
+graph LR
+    A[Discord User] -->|Message| B[Discord Bot]
+    B -->|Webhook| C[n8n Discord Bridge]
+    C -->|Execute Workflow| D[n8n AI Chat]
+    D -->|API Call| E[AI Model]
+    E -->|Response| D
+    D -->|Return| C
+    C -->|Webhook Response| B
+    B -->|Reply| A
+    
+    B -.->|Traces| F[Jaeger]
+    C -.->|Traces| F
+    D -.->|Traces| F
+    
+    B -.->|Logs| G[Pino Logger]
+```
+
+### Session Management Flow
+
+```mermaid
+graph TD
+    A[Discord Message] --> B{Is DM?}
+    B -->|Yes| C[Session: discord-dm-userId]
+    B -->|No| D[Session: discord-server-channelId]
+    C --> E[AI Agent Memory]
+    D --> E
+    E --> F[Conversation History]
+    F --> G[AI Response]
+```
+
+### Deployment Architecture
+
+```mermaid
+graph TB
+    subgraph "Development"
+        A[TypeScript Code] -->|n8n-kit| B[Workflow JSON]
+        B -->|Deploy| C[n8n Instance]
+    end
+    
+    subgraph "Runtime"
+        D[Discord Bot Container] -->|Webhook| C
+        C -->|Execute| E[AI Agent]
+        E -->|Memory| F[Simple Memory Store]
+    end
+    
+    subgraph "Observability"
+        D -.->|Traces| G[Jaeger]
+        C -.->|Traces| G
+        D -.->|Logs| H[Stdout/Pino]
+    end
+```
+
+### Project Structure
+
 ```
 packages/
 ├── discord-bot/        # Discord.js bot with n8n webhook integration
