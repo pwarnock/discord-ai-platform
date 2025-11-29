@@ -91,6 +91,8 @@ just down               # Stop services
 just logs [service]     # View logs
 just backup             # Backup workflows (timestamped)
 just backup-latest      # Backup to latest/
+just sync               # Check for workflow changes and export
+just delete-workflow ID # Delete workflow (backs up first)
 just deploy-all         # Full pipeline: backup → build → deploy
 just dev                # Development mode with watch
 just test-webhook       # Test Discord webhook
