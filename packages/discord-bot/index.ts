@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Message, PartialMessage } from 'discord.js';
+import { Client, GatewayIntentBits, Message, PartialMessage, Partials } from 'discord.js';
 import { trace, context, SpanStatusCode } from '@opentelemetry/api';
 import logger from './logger';
 
@@ -213,7 +213,8 @@ if (import.meta.main) {
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.DirectMessages,
       GatewayIntentBits.MessageContent,
-    ]
+    ],
+    partials: [Partials.Channel, Partials.Message],
   });
 
   setupClient(client);
