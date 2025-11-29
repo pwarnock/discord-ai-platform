@@ -77,3 +77,24 @@ test-webhook message="Hello from Just":
     curl -X POST http://localhost:5678/webhook-test/discord \
       -H "Content-Type: application/json" \
       -d '{"content": "{{message}}", "author": {"id": "123456789"}, "guild": {"id": "987654321"}}'
+
+# Check for workflow changes and prompt to sync
+sync:
+    #!/usr/bin/env bash
+    echo "🔍 Checking for workflow changes..."
+    cd packages/n8n-workflows
+    if bun run diff 2>&1 | grep -q "No differences found\|No workflows"; then
+        echo "✅ No changes detected"
+    else
+        echo ""
+        echo "📝 Changes detected in n8n workflows"
+        read -p "Export changes to backups/latest/? (y/n) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            cd ../..
+            just backup-latest
+            echo "✅ Workflows synced"
+        else
+            echo "⏭️  Skipped sync"
+        fi
+    fi
