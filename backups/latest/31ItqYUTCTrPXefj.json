@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-11-29T00:25:17.459Z",
+  "updatedAt": "2025-11-29T00:31:08.268Z",
   "createdAt": "2025-11-29T00:25:17.332Z",
   "id": "31ItqYUTCTrPXefj",
   "name": "Discord bridge",
@@ -150,10 +150,16 @@
   "staticData": null,
   "meta": null,
   "pinData": null,
-  "versionId": "fcb2f58c-b9ec-4214-a95a-1a30bcdc8864",
-  "versionCounter": 3,
+  "versionId": "f1e79813-4c68-44d1-a335-f765d8aa4e37",
+  "versionCounter": 5,
   "triggerCount": 1,
   "tags": [
+    {
+      "updatedAt": "2025-11-29T00:31:08.166Z",
+      "createdAt": "2025-11-29T00:31:08.166Z",
+      "id": "4trf66URPZHflbTP",
+      "name": "n8n-kit"
+    },
     {
       "updatedAt": "2025-11-29T00:25:17.264Z",
       "createdAt": "2025-11-29T00:25:17.264Z",
