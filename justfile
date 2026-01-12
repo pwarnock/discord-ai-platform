@@ -14,8 +14,9 @@ build:
 
 # Start all services
 up:
-    docker-compose up -d
+    docker-compose -f jaeger-compose.yaml up -d
     docker-compose -f observability-compose.yaml up -d
+    docker-compose up -d
     @echo "Activating webhooks..."
     @./scripts/activate-webhooks.sh
 
